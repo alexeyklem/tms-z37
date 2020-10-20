@@ -17,6 +17,7 @@ pytest-selenium = "*"
 dynaconf = { extras = ["yaml"], version = "*" }
 gunicorn = "*"
 psycopg2-binary = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
