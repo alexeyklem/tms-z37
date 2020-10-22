@@ -2,7 +2,7 @@ from framework.consts import DIR_STATIC
 
 
 def application(environ, start_response):
-    url = environ ['PATH_INFO']
+    url = environ["PATH_INFO"]
     if url == "/xxx/":
         status = "200 OK"
         headers = {
@@ -34,6 +34,7 @@ def application(environ, start_response):
 
         yield payload
 
+
 def read_from_index_html():
     path = DIR_STATIC / "index.html"
 
@@ -43,6 +44,7 @@ def read_from_index_html():
     payload = payload.encode()
     return payload
 
+
 def read_from_Styles_css():
     path = DIR_STATIC / "Styles.css"
 
@@ -51,6 +53,7 @@ def read_from_Styles_css():
 
     payload = payload.encode()
     return payload
+
 
 def read_from_logo_png():
     path = DIR_STATIC / "logo.png"
