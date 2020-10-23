@@ -13,7 +13,7 @@ def application(environ, start_response):
 
         yield payload
 
-    elif url == "/logo/":
+    elif url == "/logo.png/":
         status = "200 OK"
         headers = {
             "Content-type": "logo/png",
