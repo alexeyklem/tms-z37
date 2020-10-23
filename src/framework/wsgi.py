@@ -1,64 +1,32 @@
+from mimetypes import guess_type
+
 from framework.consts import DIR_STATIC
 
 
 def application(environ, start_response):
     url = environ["PATH_INFO"]
-    if url == "/xxx/":
-        status = "200 OK"
-        headers = {
-            "Content-type": "text/css",
-        }
-        payload = read_from_Styles_css()
-        start_response(status, list(headers.items()))
 
-        yield payload
+    file_names = {
+        "/xxx/": "Styles.css",
+        "/logo.png/": "logo.png",
+    }
 
-    elif url == "/logo.png/":
-        status = "200 OK"
-        headers = {
-            "Content-type": "logo/png",
-        }
-        payload = read_from_logo_png()
-        start_response(status, list(headers.items()))
+    file_name = file_names.get(url, "index.html")
 
-        yield payload
+    status = "200 OK"
+    headers = {
+        "Content-type": guess_type(file_name)[0],
+    }
+    payload = read_static(file_name)
+    start_response(status, list(headers.items()))
 
-    else:
-        status = "200 OK"
-        headers = {
-            "Content-type": "text/html",
-        }
-        payload = read_from_index_html()
-
-        start_response(status, list(headers.items()))
-
-        yield payload
+    yield payload
 
 
-def read_from_index_html():
-    path = DIR_STATIC / "index.html"
-
-    with path.open("r") as fp:
-        payload = fp.read()
-
-    payload = payload.encode()
-    return payload
-
-
-def read_from_Styles_css():
-    path = DIR_STATIC / "Styles.css"
-
-    with path.open("r") as fp:
-        payload = fp.read()
-
-    payload = payload.encode()
-    return payload
-
-
-def read_from_logo_png():
-    path = DIR_STATIC / "logo.png"
+def read_static(file_name: str) -> bytes:
+    path = DIR_STATIC / file_name
 
     with path.open("rb") as fp:
-        payload = fp.read()
+         payload = fp.read()
 
     return payload
