@@ -9,5 +9,4 @@ Visit http://{host}:{port}
 
 ..........................................
 """
-DIR_STATIC = (Path(__file__).parent.parent/"static").resolve()
-
+DIR_STATIC = (Path(__file__).parent.parent / "static").resolve()
