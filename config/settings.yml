@@ -36,4 +36,4 @@ ci:
 
 
 heroku:
-  HOST: "tms-z37.herokuapp.com"
+  HOST: "tmz-z37.herokuapp.com"
