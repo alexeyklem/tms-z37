@@ -1,32 +1,48 @@
-from mimetypes import guess_type
-
-from framework.consts import DIR_STATIC
-
-
-def application(environ, start_response):
-    url = environ["PATH_INFO"]
-
-    file_names = {
-        "/xxx/": "Styles.css",
-        "/logo.png/": "logo.png",
-    }
-
-    file_name = file_names.get(url, "index.html")
-
-    status = "200 OK"
-    headers = {
-        "Content-type": guess_type(file_name)[0],
-    }
-    payload = read_static(file_name)
-    start_response(status, list(headers.items()))
-
-    yield payload
+from framework import errors
+from framework.db import find_user
+from framework.types import RequestT
+from framework.utils import build_form_data
+from framework.utils import get_request_body
+from framework.utils import get_request_headers
+from framework.utils import get_request_method
+from framework.utils import get_request_path
+from framework.utils import get_request_query
+from framework.utils import get_user_id
+from handlers import get_handler_and_kwargs
+from handlers import special
 
 
-def read_static(file_name: str) -> bytes:
-    path = DIR_STATIC / file_name
+def application(environ: dict, start_response):
+    path = get_request_path(environ)
+    method = get_request_method(environ)
+    handler, kwargs = get_handler_and_kwargs(path)
+    request_headers = get_request_headers(environ)
+    query = get_request_query(environ)
+    body = get_request_body(environ)
+    form_data = build_form_data(body)
+    user_id = get_user_id(request_headers)
+    user = find_user(user_id)
 
-    with path.open("rb") as fp:
-        payload = fp.read()
+    request = RequestT(
+        body=body,
+        form_data=form_data,
+        headers=request_headers,
+        kwargs=kwargs,
+        method=method,
+        path=path,
+        query=query,
+        user=user,
+    )
 
-    return payload
+    try:
+        response = handler(request)
+    except errors.NotFound:
+        response = special.handle_404(request)
+    except errors.MethodNotAllowed:
+        response = special.handle_405(request)
+    except Exception:
+        response = special.handle_500(request)
+
+    start_response(response.status, list((response.headers or {}).items()))
+
+    yield response.payload or b""
