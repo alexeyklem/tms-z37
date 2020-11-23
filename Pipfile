@@ -19,6 +19,8 @@ gunicorn = "*"
 psycopg2-binary = "*"
 requests = "*"
 django = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"
+

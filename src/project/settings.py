@@ -14,17 +14,18 @@ from pathlib import Path
 
 from dynaconf import settings as _ds
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+_this_file = Path(__file__).resolve()
+
+DIR_PROJECT = _this_file.parent.resolve()
+
+DIR_SRC = DIR_PROJECT.parent.resolve()
+
+DIR_REPO = DIR_SRC.parent.resolve()
+
+SECRET_KEY = _ds.SECRET_KEY
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "vs*7csrheo!$$+igs&ds2j1wabj+6ze$k6p8wqar++^+9=3-y2"
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = _ds.MODE_DEBUG
 
 ALLOWED_HOSTS = [
@@ -60,7 +61,7 @@ ROOT_URLCONF = "project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [DIR_PROJECT / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -82,7 +83,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": DIR_SRC / "db.sqlite3",
     }
 }
 
@@ -119,8 +120,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_URL = "/s/"
+
+STATIC_ROOT = DIR_REPO / ".static"
+
+STATICFILES_DIRS = [
+    DIR_PROJECT / "static",
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = "/static/"
+
