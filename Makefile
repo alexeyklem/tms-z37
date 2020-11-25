@@ -17,7 +17,7 @@ test:
 
 
 .PHONY: run
-run:
+run: static
 	$(call log, starting local web server)
 	$(PYTHON) src/manage.py runserver
 
@@ -65,7 +65,7 @@ data: static
 .PHONY: static
 static:
 	$(call log, collecting static)
-    $(PYTHON) src/manage.py collectstatic --noinput
+	$(PYTHON) src/manage.py collectstatic --noinput
 
 
 .PHONY: resetdb
@@ -105,4 +105,5 @@ migrations:
 .PHONY: migrate
 migrate:
 	$(call log, applying migrations)
+	$(PYTHON) src/manage.py migrate
 

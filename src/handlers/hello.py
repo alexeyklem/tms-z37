@@ -31,7 +31,7 @@ def handle_hello_get(request: RequestT) -> ResponseT:
 
     base = read_static("_base.html")
     base_html = base.content.decode()
-    hello_html = read_static("hello.html").content.decode()
+    hello_html = read_static("index.html").content.decode()
 
     document = hello_html.format(
         address_header=request.user.address or "nowhere",

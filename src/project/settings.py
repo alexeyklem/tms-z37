@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    #----------------------------
+    "applications.landing.apps.LandingConfig",
+    "applications.hello.apps.HelloConfig"
+
 ]
 
 MIDDLEWARE = [
@@ -128,7 +132,7 @@ STATICFILES_DIRS = [
     DIR_PROJECT / "static",
 ]
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
