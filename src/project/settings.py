@@ -14,7 +14,6 @@ from pathlib import Path
 
 from dynaconf import settings as _ds
 
-
 _this_file = Path(__file__).resolve()
 
 DIR_PROJECT = _this_file.parent.resolve()
@@ -44,10 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    #----------------------------
+    # ----------------------------
     "applications.landing.apps.LandingConfig",
-    "applications.hello.apps.HelloConfig"
-
+    "applications.hello.apps.HelloConfig",
 ]
 
 MIDDLEWARE = [
@@ -134,5 +132,3 @@ STATICFILES_DIRS = [
 
 if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-
