@@ -18,6 +18,10 @@ dynaconf = { extras = ["yaml"], version = "*" }
 gunicorn = "*"
 psycopg2-binary = "*"
 requests = "*"
+django = "*"
+whitenoise = "*"
+sentry-sdk = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
+
