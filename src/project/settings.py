@@ -115,5 +115,3 @@ STATICFILES_DIRS = [
     DIR_PROJECT / "static",
 ]
 
-if not DEBUG:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
