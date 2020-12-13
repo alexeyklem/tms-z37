@@ -21,7 +21,7 @@ requests = "*"
 django = "*"
 whitenoise = "*"
 sentry-sdk = "*"
+dj-database-url = "*"
 
 [requires]
-python_version = "3.9"
-
+python_version = "3.8"
