@@ -31,7 +31,12 @@ run-prod:
 .PHONY: sh
 sh:
 	$(call log, starting Python shell)
-	$(RUN) ipython
+	$(PYTHON) src/manage.py shell
+
+.PHONY: su
+su:
+	$(call log, creating a superuser)
+	$(PYTHON) src/manage.py createsuperuser
 
 
 .PHONY: venv
@@ -100,7 +105,7 @@ createdb:
 .PHONY: migrations
 migrations:
 	$(call log, generating migrations)
-
+	$(PYTHON) src/manage.py makemigrations
 
 .PHONY: migrate
 migrate:
