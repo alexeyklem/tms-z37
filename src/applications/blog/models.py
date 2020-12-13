@@ -1,7 +1,10 @@
 from datetime import datetime
 
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse_lazy
+
+User = get_user_model()
 
 
 class Post(models.Model):
@@ -11,6 +14,8 @@ class Post(models.Model):
     nr_views = models.IntegerField(default=0)
     created_at = models.DateTimeField(null=True, blank=True, default=datetime.now)
     edited = models.BooleanField(default=False)
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["-created_at"]

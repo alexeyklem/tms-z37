@@ -25,19 +25,26 @@ class AllPostsView(ExtendedContextMixin, ListView):
 
     def get_extended_context(self) -> Dict:
         context = {"form": PostForm()}
+
         return context
 
 
 class NewPostView(CreateView):
+    fields = ["content"]
     http_method_names = ["post"]
     model = Post
-    fields = ["content"]
     success_url = reverse_lazy("blog:all")
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+
+        return super().form_valid(form)
 
 
 class WipeAllPostsView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
-        Post.objects.all().delete()
+        Post.objects.filter(author=self.request.user).delete()
         return reverse_lazy("blog:all")
 
 
