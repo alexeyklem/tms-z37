@@ -22,6 +22,7 @@ django = "*"
 whitenoise = "*"
 sentry-sdk = "*"
 dj-database-url = "*"
+delorean = "*"
 
 [requires]
 python_version = "3.8"
