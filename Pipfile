@@ -24,6 +24,9 @@ sentry-sdk = "*"
 dj-database-url = "*"
 delorean = "*"
 pydantic = "*"
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+sqlalchemy = "*"
 
 [requires]
 python_version = "3.8"
