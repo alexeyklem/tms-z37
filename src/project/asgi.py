@@ -7,7 +7,7 @@ from api.main import app
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
 
-async def application(scope, recive, send):
+async def application(scope, receive, send):
     path = scope["path"]
 
     if path.startswith("/api"):
@@ -15,4 +15,4 @@ async def application(scope, recive, send):
     else:
         _app = get_asgi_application()
 
-    return await _app(scope, recive, send)
+    return await _app(scope, receive, send)

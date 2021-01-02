@@ -41,4 +41,4 @@ class Post(models.Model):
     def get_absolute_url(self):
         kwargs = {"pk": self.pk}
         url = reverse_lazy("blog:post", kwargs=kwargs)
-        return url
+        return

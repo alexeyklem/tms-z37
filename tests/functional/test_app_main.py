@@ -26,6 +26,3 @@ def validate_content(page: MainPage):
 
     html = page.html
     assert "<hr>" in html
-
-    html = page.html
-    assert "<hr>" in html
